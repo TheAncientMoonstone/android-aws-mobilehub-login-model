@@ -23,23 +23,17 @@ public class SplashActivity extends AppCompatActivity {
         AWSMobileClient.getInstance().initialize(SplashActivity.this, new AWSStartupHandler() {
             @Override
             public void onComplete(AWSStartupResult awsStartupResult) {
-
-                new Handler().postDelayed(new Runnable() {
+                IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
+                identityManager.resumeSession(SplashActivity.this, new StartupAuthResultHandler() {
                     @Override
-                    public void run() {
-                        IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
-                        identityManager.resumeSession(SplashActivity.this, new StartupAuthResultHandler() {
-                            @Override
-                            public void onComplete(StartupAuthResult authResults) {
-                                if (authResults.isUserSignedIn()) {
-                                    Log.d("wotom", "loged in");
-                                    startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                } else {
-                                    Log.d("wotom", "not loged in");
-                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                }
-                            }
-                        });
+                    public void onComplete(StartupAuthResult authResults) {
+                        if (authResults.isUserSignedIn()) {
+                            Log.d("wotom", "loged in");
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        } else {
+                            Log.d("wotom", "not loged in");
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        }
                     }
                 }, 3000);
             }

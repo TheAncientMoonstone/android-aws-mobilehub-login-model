@@ -69,6 +69,14 @@ public class AWSLoginModel {
         }
     };
 
+
+    /**
+     * Constructs the model for login functions in AWS Mobile Hub
+     *
+     * @param context         REQUIRED: Android application context.
+     * @param callback        REQUIRED: Callback handler for login operations.
+     *
+     */
     public AWSLoginModel(Context context, AWSLoginHandler callback) {
         mContext = context;
         IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
@@ -86,6 +94,14 @@ public class AWSLoginModel {
         mCallback = callback;
     }
 
+    /**
+     * Registers new user to the AWS Cognito User Pool
+     *
+     * @param userName          REQUIRED: Username to be registered. Must be unique in the User Pool.
+     * @param userEmail         REQUIRED: E-mail to be registered. Must be unique in the User Pool.
+     * @param userPassword      REQUIRED: Password of this new account.
+     *
+     */
     public void registerUser(String userName, String userEmail, String userPassword) {
         CognitoUserAttributes userAttributes = new CognitoUserAttributes();
         userAttributes.addAttribute(ATTR_EMAIL, userEmail);
@@ -107,6 +123,11 @@ public class AWSLoginModel {
 
     }
 
+    /**
+     * Confirms registration of the new user in AWS Cognito User Pool
+     *
+     * @param confirmationCode      REQUIRED: Code sent from AWS to the user.
+     */
     public void confirmRegistration(String confirmationCode) {
         final GenericHandler confirmationHandler = new GenericHandler() {
             @Override
@@ -123,8 +144,14 @@ public class AWSLoginModel {
         mCognitoUser.confirmSignUpInBackground(confirmationCode, false, confirmationHandler);
     }
 
-    public void signInUser(String userName, String userPassword) {
-        this.userName = userName;
+    /**
+     * Sign in process
+     *
+     * @param userNameOrEmail        REQUIRED: Username or e-mail.
+     * @param userPassword           REQUIRED: Password.
+     */
+    public void signInUser(String userNameOrEmail, String userPassword) {
+        this.userName = userNameOrEmail;
         this.userPassword = userPassword;
 
         mCognitoUser = mCognitoUserPool.getUser(userName);
