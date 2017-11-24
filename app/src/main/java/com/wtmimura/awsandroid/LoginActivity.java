@@ -47,9 +47,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onFailure(Exception exception) {
+    public void onFailure(int process, Exception exception) {
         exception.printStackTrace();
-        Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        String whatProcess = "";
+        switch (process) {
+            case AWSLoginModel.PROCESS_SIGN_IN:
+                whatProcess = "Sign In:";
+                break;
+            case AWSLoginModel.PROCESS_REGISTER:
+                whatProcess = "Registration:";
+                break;
+            case AWSLoginModel.PROCESS_CONFIRM_REGISTRATION:
+                whatProcess = "Registration Confirmation:";
+                break;
+        }
+        Toast.makeText(LoginActivity.this, whatProcess + exception.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override

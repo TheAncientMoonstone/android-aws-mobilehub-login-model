@@ -26,6 +26,9 @@ public class AWSLoginModel {
 
     // constants
     public static final String ATTR_EMAIL = "email";
+    public static final int PROCESS_SIGN_IN = 1;
+    public static final int PROCESS_REGISTER = 2;
+    public static final int PROCESS_CONFIRM_REGISTRATION = 3;
 
     // interface handler
     private AWSLoginHandler mCallback;
@@ -65,13 +68,13 @@ public class AWSLoginModel {
 
         @Override
         public void onFailure(Exception exception) {
-            mCallback.onFailure(exception);
+            mCallback.onFailure(PROCESS_SIGN_IN, exception);
         }
     };
 
 
     /**
-     * Constructs the model for login functions in AWS Mobile Hub
+     * Constructs the model for login functions in AWS Mobile Hub.
      *
      * @param context         REQUIRED: Android application context.
      * @param callback        REQUIRED: Callback handler for login operations.
@@ -95,7 +98,7 @@ public class AWSLoginModel {
     }
 
     /**
-     * Registers new user to the AWS Cognito User Pool
+     * Registers new user to the AWS Cognito User Pool.
      *
      * @param userName          REQUIRED: Username to be registered. Must be unique in the User Pool.
      * @param userEmail         REQUIRED: E-mail to be registered. Must be unique in the User Pool.
@@ -115,7 +118,7 @@ public class AWSLoginModel {
 
             @Override
             public void onFailure(Exception exception) {
-                mCallback.onFailure(exception);
+                mCallback.onFailure(PROCESS_REGISTER, exception);
             }
         };
 
@@ -124,7 +127,7 @@ public class AWSLoginModel {
     }
 
     /**
-     * Confirms registration of the new user in AWS Cognito User Pool
+     * Confirms registration of the new user in AWS Cognito User Pool.
      *
      * @param confirmationCode      REQUIRED: Code sent from AWS to the user.
      */
@@ -137,7 +140,7 @@ public class AWSLoginModel {
 
             @Override
             public void onFailure(Exception exception) {
-                mCallback.onFailure(exception);
+                mCallback.onFailure(PROCESS_CONFIRM_REGISTRATION, exception);
             }
         };
 
@@ -145,7 +148,7 @@ public class AWSLoginModel {
     }
 
     /**
-     * Sign in process
+     * Sign in process.
      *
      * @param userNameOrEmail        REQUIRED: Username or e-mail.
      * @param userPassword           REQUIRED: Password.
