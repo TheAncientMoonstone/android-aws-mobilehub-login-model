@@ -1,5 +1,19 @@
+/*
+ * Author: William Takashi Mimura
+ * Date: November 23, 2017
+ * Website: www.wtmimura.com
+ * Repository: https://github.com/mimurawil/android-aws-mobilehub-login-model
+ *
+ * You can copy, change, or whatever. Just use some common sense and good faith.
+ * If you use this, please leave a message at wotom.wtmimura@gmail.com. That'd be awesome!
+ */
+
 package com.wtmimura.awsandroid.aws;
 
+/**
+ * Callback used for model {@link AWSLoginModel}. This needs to be implemented when the constructor
+ * of {@link AWSLoginModel} is called.
+ */
 public interface AWSLoginHandler {
 
     /**

@@ -12,3 +12,16 @@ I explained how I started this model in my website at [www.wtmimura.com](http://
 You can copy, change, or whatever. Just use some common sense and good faith.
 
 If you use this, please leave a message at wotom.wtmimura@gmail.com. That'd be awesome!
+
+## How to Use
+1. Create an AWS Mobile Hub project.
+2. Add **User Sign-in** service to the project.
+    1. Choose **email** as sign-in method, and **no** multi-factor authentication.
+3. Download the **configuration file**.
+4. Download this repository.
+5. Add the **configuration file** to this Android app (in a raw resource directory).
+6. Run the app!
+
+## Documentation
+Documentation about the AWSLoginModel and AWSLoginHandler (both in JavaDoc):
+http://wtmimura.com/android/documentations/JavaDoc/

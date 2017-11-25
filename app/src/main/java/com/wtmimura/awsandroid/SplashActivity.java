@@ -23,21 +23,25 @@ public class SplashActivity extends AppCompatActivity {
         AWSMobileClient.getInstance().initialize(SplashActivity.this, new AWSStartupHandler() {
             @Override
             public void onComplete(AWSStartupResult awsStartupResult) {
-                IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
-                identityManager.resumeSession(SplashActivity.this, new StartupAuthResultHandler() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onComplete(StartupAuthResult authResults) {
-                        if (authResults.isUserSignedIn()) {
-                            Log.d("wotom", "loged in");
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        } else {
-                            Log.d("wotom", "not loged in");
-                            startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        }
+                    public void run() {
+                        IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
+                        identityManager.resumeSession(SplashActivity.this, new StartupAuthResultHandler() {
+                            @Override
+                            public void onComplete(StartupAuthResult authResults) {
+                                if (authResults.isUserSignedIn()) {
+                                    Log.d("wotom", "loged in");
+                                    startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                } else {
+                                    Log.d("wotom", "not loged in");
+                                    startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                }
+                            }
+                        }, 3000);
                     }
                 }, 3000);
             }
         }).execute();
-
     }
 }
