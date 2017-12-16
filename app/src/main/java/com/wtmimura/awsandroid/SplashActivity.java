@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.auth.core.StartupAuthResult;
@@ -27,14 +26,12 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         IdentityManager identityManager = IdentityManager.getDefaultIdentityManager();
-                        identityManager.resumeSession(SplashActivity.this, new StartupAuthResultHandler() {
+                        identityManager.resumeSession( SplashActivity.this, new StartupAuthResultHandler() {
                             @Override
                             public void onComplete(StartupAuthResult authResults) {
                                 if (authResults.isUserSignedIn()) {
-                                    Log.d("wotom", "loged in");
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 } else {
-                                    Log.d("wotom", "not loged in");
                                     startActivity(new Intent(SplashActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 }
                             }
